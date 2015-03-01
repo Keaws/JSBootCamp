@@ -18,7 +18,6 @@ function printBanner() {
 
 var state = 1;
 	
-
 function isNumber(n) {
 	if (n == 0) {
 		console.log('Book with no pages? Come on!');
