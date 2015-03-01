@@ -66,6 +66,7 @@ function bookWorm(input) {
 function validateUserInput(input) {
 	input = input.trim();
 	if (input == 'q') {
+		console.log('Have a lovely day!');
 		process.exit();
 	} else if (input == '') {
 		console.log('Error, you did not enter anything!');
@@ -79,7 +80,7 @@ function validateUserInput(input) {
 }
 
 function printBook(book) {
-	console.log('\nYour favorite book is "' + favBook.name + '" by ' + favBook.author.name + ' (' + favBook.author.country + ').' + ' The book has ' + favBook.pages + ' pages.')
+	console.log('\nThank you!\nIt seems that you like reading ' + favBook.genre + ' and your favorite book is "' + favBook.name + '" by ' + favBook.author.name + ' (' + favBook.author.country + ').' + ' The book has ' + favBook.pages + ' pages.')
 }
 
 printBanner();
