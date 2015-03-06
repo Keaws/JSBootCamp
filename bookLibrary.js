@@ -1,3 +1,9 @@
+var readline = require('readline'),
+	rl = readline.createInterface({
+  	input: process.stdin,
+  	output: process.stdout
+	});
+
 var favBook = {
 	author: {}
 };
@@ -18,40 +24,9 @@ var MM_ADD_BOOK = '1',
 	MM_PRINT_LIBRARY = '4',
 	MM_EXIT = '5';
 
-function openUserInputAddBook() {
-	process.stdin.setEncoding('utf-8');
-	process.stdin.resume();
-	process.stdin.on('data', addBook);
-};
+function mainMenu() {
+    //readMainMenu.resume();
 
-function openUserInputMainMenu() {
-	process.stdin.setEncoding('utf-8');
-	process.stdin.resume();
-	process.stdin.on('data', mainMenuProcess);
-};
-
-function mainMenuProcess(input) {
-	input = input.trim();
-
-	switch(input) {
-		case MM_ADD_BOOK:
-			console.log('\n===========================');
-			console.log('\nTo add a new book, please answer the following questions');
-			console.log('\nEnter a title of your favorite book');
-			process.stdin.pause();
-			openUserInputAddBook();
-			break;
-		case MM_EXIT:
-			console.log('Have a lovely day!');
-			process.exit();
-		default:
-			//console.log('[' + input + ']');
-			//console.log('input: [' + input + '] MM_ADD_BOOK ' + '[' + MM_ADD_BOOK + ']')
-			console.log('default');
-	}
-};
-
-function printBanner() {
 	console.log("\n===========================");
     console.log("= WELCOME TO BOOK LIBRARY =");
     console.log("===========================");
@@ -62,26 +37,36 @@ function printBanner() {
     console.log("4. Take a look at library");
     console.log("5. Exit");
 
-    //console.log(process.stdin);
-    openUserInputMainMenu();
-	//console.log("\n\nEnter a title of your favorite book");
+    rl.on('line', function (input) {
+  		mainMenuProcess(input);
+	});
 };
-	
-function isNumber(n) {
-	if (n == 0) {
-		console.log('Book with no pages? Come on!');
-		state--;
-	} else if (n < 0) {
-		console.log('Please, enter positive number');
-		state--;
-	} else if (!!isNaN(parseInt(n)) && !isFinite(n)) {
-		console.log('Error: [' + n + '] is not a number');
-		state--;
-	} else return parseInt(n);
-}
 
-function addBook(input) {
-	input = validateUserInputAddBook(input);
+function mainMenuProcess(input) {
+	input = input.trim();
+
+	switch(input) {
+		case MM_ADD_BOOK:
+			console.log('\n===========================');
+			console.log('\nTo add a new book, please answer the following questions');
+			addBook();
+			break;
+		case MM_EXIT:
+			console.log('Have a lovely day!');
+			process.exit();
+			break;
+		default:
+			//console.log('[' + input + ']');
+			//console.log('input: [' + input + '] MM_ADD_BOOK ' + '[' + MM_ADD_BOOK + ']')
+			console.log('default');
+	}
+};
+
+function addBook() {
+	console.log('\nEnter a title of your favorite book');
+
+	rl.on('line', function (input) {
+    	input = validateUserInputAddBook(input);
 
 	if (state == AB_NAME) {
 		if (input) {
@@ -110,6 +95,7 @@ function addBook(input) {
 			console.log('\nType "q" to quit or "again" to enter the data again.');
 		}
 	}
+	});
 };
 
 function validateUserInputAddBook(input) {
@@ -121,15 +107,28 @@ function validateUserInputAddBook(input) {
 		console.log('Error, you did not enter anything!');
 	} else if (state == AB_AUTHOR_COUNTRY && input == 'again') {
 		state = '0';
-		printBanner();
+		addBook();
 	} else {
 		state++;
 		return input;
 	} 
 }
 
+function isNumber(n) {
+	if (n == 0) {
+		console.log('Book with no pages? Come on!');
+		state--;
+	} else if (n < 0) {
+		console.log('Please, enter positive number');
+		state--;
+	} else if (!!isNaN(parseInt(n)) && !isFinite(n)) {
+		console.log('Error: [' + n + '] is not a number');
+		state--;
+	} else return parseInt(n);
+}
+
 function printBook(book) {
 	console.log('\nThank you!\nIt seems that you like reading ' + favBook.genre + ' and your favorite book is "' + favBook.name + '" by ' + favBook.author.name + ' (' + favBook.author.country + ').' + ' The book has ' + favBook.pages + ' pages.')
 }
 
-printBanner();
+mainMenu();
