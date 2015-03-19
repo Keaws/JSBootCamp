@@ -1,0 +1,63 @@
+body {
+		background-color: white;
+		text-align: center;
+		margin: 0 auto;
+   		max-width: 500px;
+	}
+
+ul.navigation {
+	padding: 20px 0px 0px 0px;
+}
+
+li.navigation {
+    display: inline;
+    padding: 0px 10px 0px 10px;
+   }
+
+li.book-item {
+	list-style-type: none;
+	margin-bottom: 50px;
+}
+
+a.navigation {
+	color: white;
+}
+
+h1 {
+	font-size: 70px;
+	padding: 25px 0 0 0;
+}
+
+.header {
+    	background-image: url("../img/bookHeader.jpg");
+    	height: 250px;
+    	width: 100%;
+    	position: absolute;
+    	left: 0px;
+    	color: white;
+        margin-top: -20px;
+    }
+#books {
+   	padding-top: 250px;
+   }
+
+ p.short-description {
+ 	text-align: justify;
+ }
+
+ #contact_form {
+ 	padding-top: 300px;
+ }
+
+ textarea {
+  resize: none;
+}
+
+div.book {
+	max-width: 1000px;
+	padding-top: 275px;
+}
+
+img.cover {
+	position: relative;
+}
